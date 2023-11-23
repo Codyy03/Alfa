@@ -107,8 +107,9 @@ public class WeaponController : MonoBehaviour
                 
                 if (hit.collider.CompareTag("Head"))
                 {
+                    shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 4, hit);
                     hit.collider.gameObject.SetActive(false);
-                    hit.transform.parent.GetComponent<ZombieHealth>().IsDead(true);
+                    hit.transform.parent.GetComponent<ZombieHealth>().IsDead();
                 }
             
                    

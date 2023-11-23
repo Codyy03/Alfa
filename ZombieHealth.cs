@@ -8,7 +8,6 @@ public class ZombieHealth : MonoBehaviour
 {
     [SerializeField] int maxHealth;
     [SerializeField] BoxCollider headCollider;
-    [SerializeField] ParticleSystem headExplode;
     int health;
 
     AnimatorController animatorController;
@@ -36,14 +35,13 @@ public class ZombieHealth : MonoBehaviour
         
 
         if (health == 0)
-            IsDead(false);
+            IsDead();
         
     }
 
-    public void IsDead(bool instantDead)
+    public void IsDead()
     {
-        if (instantDead)     
-          headExplode.Play();
+    
             
         headCollider.enabled = false;
         GetComponent<ZombieController>().enabled = false;
