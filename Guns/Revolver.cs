@@ -47,6 +47,7 @@ public class Revolver : Gun
 
     public override void Reload()
     {
+        base.Reload();
         int ammo = maxAmmoInMagazine - currentAmmoInMagazine;
 
         if(ammo<=ammunition.revolverAmmunition)

@@ -25,6 +25,15 @@ public class WeaponsManager : MonoBehaviour
         {
             weapon.SetActive(true);
         }
+
+        public bool IsMeele()
+        {
+            if (weapon.GetComponent<Gun>() == null)
+                return true;
+
+            return false;
+        
+        }
        
     }
 
@@ -46,8 +55,10 @@ public class WeaponsManager : MonoBehaviour
 
     Ammunition ammunition;
     WeaponsSlot currentWeapon;
+    AudioManager audioManager;
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         ammunition = FindFirstObjectByType<Ammunition>();
         currentWeapon = weaponsSlots[0];
         for (int i = 0; i < weaponsSlots.Count; i++)
@@ -64,9 +75,15 @@ public class WeaponsManager : MonoBehaviour
         {
             if (Input.GetKeyDown(weaponsNumbersp[i]) && weaponsSlots[i].isUnlock)
             {
+                audioManager.StopSound();
                 currentWeapon.animatorController.GetAnimator().Play("Idle", -1, 0f); // Zak³adam, ¿e "Idle" to twoja domyœlna animacja
                 currentWeapon.animatorController.GetAnimator().Update(0f);
-                currentWeapon.weapon.GetComponent<Gun>().isReloading = false;
+                if (!currentWeapon.IsMeele())
+                { 
+                    currentWeapon.weapon.GetComponent<Gun>().isReloading = false;
+                    currentWeapon.weapon.GetComponent<Gun>().isShooting = false;
+                }
+               
                 DisableWeapons();
                 currentWeapon = weaponsSlots[i];
                 currentWeapon.EneableWeapon();
@@ -102,6 +119,10 @@ public class WeaponsManager : MonoBehaviour
    
     public bool IsShooting()
     {
+        if (currentWeapon.IsMeele())
+            return false;
+
+
         if (currentWeapon.weapon.GetComponent<Gun>().isShooting)
             return true;
 
@@ -114,6 +135,9 @@ public class WeaponsManager : MonoBehaviour
     }
     public bool IsReloading()
     {
+        if (currentWeapon.IsMeele())
+            return false;
+
         if (currentWeapon.weapon.GetComponent<Gun>().isReloading)
             return true;
 

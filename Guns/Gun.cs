@@ -30,7 +30,7 @@ public class Gun : MonoBehaviour
     AudioManager audioManager;
     AnimatorController controller;
     PlayerController playerController;
-
+    
     private void Awake()
     {
         
@@ -50,7 +50,7 @@ public class Gun : MonoBehaviour
     }
 
     public virtual void Reload(){
-       
+        isShooting = false;
 
     }
     public virtual void DisplayCurrentWeaponAmmunition()

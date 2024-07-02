@@ -25,4 +25,10 @@ public class AudioManager : MonoBehaviour
     {
         PlayClip(clickSound);
     }
+
+    public void StopSound()
+    {
+        audioSource.Stop();
+    
+    }
 }
