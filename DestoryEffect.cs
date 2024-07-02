@@ -9,8 +9,9 @@ public class DestoryEffect : MonoBehaviour
     void Start()
     {
         StartCoroutine(WaitToDestory());
-    }
 
+        
+    }
     // Update is called once per frame
     void Update()
     {

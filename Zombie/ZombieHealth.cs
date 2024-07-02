@@ -8,11 +8,16 @@ public class ZombieHealth : MonoBehaviour
 {
     [SerializeField] int maxHealth;
     [SerializeField] BoxCollider headCollider;
+    [SerializeField] AudioClip bodyHit;
     int health;
 
     AnimatorController animatorController;
+    ZombieController zombieController;
+    AudioManager audioManager;
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
+        zombieController = GetComponent<ZombieController>();
         animatorController = GetComponent<AnimatorController>();    
         health = maxHealth;
     }
@@ -31,8 +36,9 @@ public class ZombieHealth : MonoBehaviour
     {
       
         health = Mathf.Clamp(health+value, 0 ,maxHealth);
+        zombieController.SetPlayerIsInZombieRange(true);
 
-        
+        audioManager.PlayClip(bodyHit);
 
         if (health == 0)
             IsDead();
@@ -46,9 +52,12 @@ public class ZombieHealth : MonoBehaviour
         headCollider.enabled = false;
         GetComponent<ZombieController>().enabled = false;
         GetComponent<NavMeshAgent>().enabled = false;
+        gameObject.layer = 0;
+        gameObject.tag = "Untagged";
         
         animatorController.ChangeAnimationState(animatorController.deadAnimations[Random.Range(0, animatorController.deadAnimations.Count)]);
         GetComponent<AudioSource>().enabled = false;
+        GetComponent<DestoryEffect>().enabled = true;
 
        
     }

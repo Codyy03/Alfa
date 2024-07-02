@@ -20,7 +20,7 @@ public class ShootingPoints : MonoBehaviour
             case 1: Instantiate(bulletPoints[Random.Range(0, bulletPoints.Count)], postion, Quaternion.LookRotation(target.normal)); break;
             case 2: Instantiate(metalEffect, postion, Quaternion.LookRotation(target.normal)); break;
             case 3: Instantiate(groundEffect, postion, Quaternion.LookRotation(target.normal)); break;
-            case 4: Instantiate(headExplode, postion, Quaternion.LookRotation(target.normal)); break;
+            case 4: Instantiate(headExplode, target.transform); break;
 
         }
 

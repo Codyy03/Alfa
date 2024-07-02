@@ -5,14 +5,18 @@ using UnityEngine;
 public class ZombieAttackPoint : MonoBehaviour
 {
     [SerializeField] int damage = 1;
-
+    [SerializeField] AudioClip[] attackSounds;
     public LayerMask playerLayer;
     public float radius=1f;
-   
-    void Start()
+
+
+    AudioManager audioManager;
+
+    private void Awake()
     {
-        
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
+   
 
     // Update is called once per frame
     void Update()
@@ -26,7 +30,7 @@ public class ZombieAttackPoint : MonoBehaviour
         {
            
             hit[0].GetComponent<PlayerHealth>().ChangeHealth(-damage);
-
+            audioManager.PlayClip(attackSounds[Random.Range(0, attackSounds.Length)]);
             gameObject.SetActive(false);
         }
     }

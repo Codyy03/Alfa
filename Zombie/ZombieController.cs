@@ -9,9 +9,11 @@ public class ZombieController : MonoBehaviour
     [SerializeField] Transform player;
     [SerializeField] GameObject attackPoint;
     [SerializeField] float speed,rotationSpeed;
-
+    [SerializeField] float distanceToStopWalikngToPlayer;
+    [SerializeField] AudioClip zombieIdle, zombieAttack;
     Vector3 relativePos;
     float distanceToPlayer;
+    bool playerIsInZombieRange;
     NavMeshAgent agent;
     AnimatorController animatorController;
     AudioSource audioSource;
@@ -19,12 +21,9 @@ public class ZombieController : MonoBehaviour
     // Start is called before the first frame upda
     private void Awake()
     {
-        audioSource = FindAnyObjectByType<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         animatorController = GetComponent<AnimatorController>();
-    
-
-
     }
     void Start()
     {
@@ -36,17 +35,38 @@ public class ZombieController : MonoBehaviour
         if (!agent.enabled)
             return;
 
+        
         distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer > 2f)
+
+        if (!playerIsInZombieRange)
+        {
+            animatorController.ChangeAnimationState("Z_Idle");
+            if (audioSource.clip != zombieIdle)
+            {
+                audioSource.clip = zombieIdle;
+                audioSource.Play();
+            }
+            return;
+        
+        }
+        if (distanceToPlayer > 2f && distanceToPlayer < distanceToStopWalikngToPlayer && playerIsInZombieRange)
         {
             agent.SetDestination(player.transform.position);
             animatorController.ChangeAnimationState(animatorController.walkAnimation);
-
-       
-
+            if (audioSource.clip != zombieAttack)
+            {
+                audioSource.clip = zombieAttack;
+                audioSource.Play();
+            }
+             
         }
-        else audioSource.Pause();
+
+        if (distanceToPlayer >= distanceToStopWalikngToPlayer)
+        {
+            playerIsInZombieRange = false;
+        }
+       // else audioSource.Pause();
 
         if (distanceToPlayer <= 2f)
             animatorController.ChangeAnimationState(animatorController.AttackAnimation[Random.Range(0,1)]);
@@ -62,7 +82,7 @@ public class ZombieController : MonoBehaviour
 
 
     }
-    // Update is called once per f
+
     void Update()
     {
        
@@ -78,7 +98,15 @@ public class ZombieController : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+            playerIsInZombieRange = true;
+    }
 
-
+    public void SetPlayerIsInZombieRange(bool playerIsInZombieRange)
+    { 
+        this.playerIsInZombieRange = playerIsInZombieRange;
+    }
 
 }

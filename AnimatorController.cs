@@ -17,20 +17,14 @@ public class AnimatorController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
-    void Start()
-    {
-        
+
+   public Animator GetAnimator() { 
+        return animator;
+    
     }
-
-    // Update is called once per f
-    void Update()
-    {
-
-    }
-
     public void ChangeAnimationState(string animation)
     {
-        if (currentAnimation == animation || animation=="")
+        if (currentAnimation == animation || string.IsNullOrEmpty(animation))
             return;
 
         animator.Play(animation);
