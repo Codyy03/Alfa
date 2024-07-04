@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 playerFootsteps.stepDistance = walkStepDistance;
                 playerFootsteps.volumeMax = walkVolumeMax;
                 playerFootsteps.volumeMin = walkVolumeMin;
-                if (!weaponsManager.IsReloading())
+                if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking())
                 {
                     if (Input.GetKey(KeyCode.Mouse1))
                         weaponsManager.PlayAnimation("Walk_Aiming");
@@ -130,7 +130,7 @@ public class PlayerController : MonoBehaviour
                 if(!isCrouch)
                     SetColliderRadius(6.65f); 
             }
-            else if (Input.GetKey(KeyCode.LeftShift) && !weaponsManager.IsShooting() && !weaponsManager.IsReloading() && !isCrouch)
+            else if (Input.GetKey(KeyCode.LeftShift) && !weaponsManager.IsShooting() && !weaponsManager.IsReloading() && !isCrouch && !weaponsManager.IsAttacking())
             {
                 playerFootsteps.stepDistance = sprintStepDistance;
                 playerFootsteps.volumeMin = sprintVolume;
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!weaponsManager.IsReloading())
+        if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking())
         {
             if (Input.GetKey(KeyCode.Mouse1))
                 weaponsManager.PlayAnimation("Idle_Aiming");

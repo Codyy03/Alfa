@@ -31,5 +31,10 @@ public class AnimatorController : MonoBehaviour
         currentAnimation = animation;
     }
 
-   
+    // tylko do zapalniczki. Ustawia swiatlo na wlaczone
+    void EneableLighterLight()
+    { 
+        
+    
+    }
 }

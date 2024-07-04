@@ -13,7 +13,7 @@ public class WeaponsManager : MonoBehaviour
     {
         public AnimatorController animatorController;
  
-        public bool isUnlock;
+        public bool isUnlock,isMeele;
         public GameObject weapon;
 
         
@@ -25,15 +25,12 @@ public class WeaponsManager : MonoBehaviour
         {
             weapon.SetActive(true);
         }
-
-        public bool IsMeele()
+        public bool GetIsMeele()
         {
-            if (weapon.GetComponent<Gun>() == null)
-                return true;
-
-            return false;
+            return isMeele;
         
         }
+
        
     }
 
@@ -78,12 +75,15 @@ public class WeaponsManager : MonoBehaviour
                 audioManager.StopSound();
                 currentWeapon.animatorController.GetAnimator().Play("Idle", -1, 0f); // Zak³adam, ¿e "Idle" to twoja domyœlna animacja
                 currentWeapon.animatorController.GetAnimator().Update(0f);
-                if (!currentWeapon.IsMeele())
-                { 
+                if (!currentWeapon.isMeele)
+                {
                     currentWeapon.weapon.GetComponent<Gun>().isReloading = false;
                     currentWeapon.weapon.GetComponent<Gun>().isShooting = false;
                 }
-               
+                else if(currentWeapon.isMeele && currentWeapon.weapon.GetComponent<MeleWeapon>()!=null) 
+                    currentWeapon.weapon.GetComponent<MeleWeapon>().isAttacking = false;
+
+
                 DisableWeapons();
                 currentWeapon = weaponsSlots[i];
                 currentWeapon.EneableWeapon();
@@ -119,7 +119,7 @@ public class WeaponsManager : MonoBehaviour
    
     public bool IsShooting()
     {
-        if (currentWeapon.IsMeele())
+        if (currentWeapon.isMeele)
             return false;
 
 
@@ -135,7 +135,7 @@ public class WeaponsManager : MonoBehaviour
     }
     public bool IsReloading()
     {
-        if (currentWeapon.IsMeele())
+        if (currentWeapon.isMeele)
             return false;
 
         if (currentWeapon.weapon.GetComponent<Gun>().isReloading)
@@ -144,17 +144,23 @@ public class WeaponsManager : MonoBehaviour
         return false;
 
     }
-    //public void StopReloadingHandgun()
-    //{
-    //    isReolading = false;
 
-    //    int ammunitionToReload = ammunition.ReturnCurrentAmmountToReload(ammunition.GethandgunAmmo(), ammunition.maxHandgunAmmo, ammunition.handgunStorageAmmunition);
-    //    ammunition.SetHandgunAmmo(ammunitionToReload);
+    public bool IsAttacking()
+    {
+        if (currentWeapon.weapon.GetComponent<MeleWeapon>() == null)
+        { 
+            return false;
+        
+        }
+        if (currentWeapon.GetIsMeele())
+        {
+           return currentWeapon.weapon.GetComponent<MeleWeapon>().isAttacking;
+        
+        }
 
-    //    ammunition.handgunStorageAmmunition -= ammunitionToReload;
-    //    ammunition.ammunitionUIHandgun.SetCurrentAmmunitionAmount(ammunition.GethandgunAmmo(),ammunition.maxHandgunAmmo);
-    //    ammunition.ammunitionUIHandgun.SetStorageAmount(ammunition.handgunStorageAmmunition);
-    //} 
+        return false;
+    
+    }
   
   
 }

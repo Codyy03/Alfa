@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -32,12 +32,13 @@ public class ZombieHealth : MonoBehaviour
         
     }
 
-    public void ChangeHealth(int value)
+    public void ChangeHealth(int value, bool gunDamage)
     {
       
         health = Mathf.Clamp(health+value, 0 ,maxHealth);
         zombieController.SetPlayerIsInZombieRange(true);
 
+        if(gunDamage)
         audioManager.PlayClip(bodyHit);
 
         if (health == 0)

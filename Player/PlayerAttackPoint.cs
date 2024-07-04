@@ -11,9 +11,10 @@ public class PlayerAttackPoint : MonoBehaviour
 
     ShootingPoints points;
     AudioManager audioManager;
-
+    MeleWeapon meleWeapon;
     private void Awake()
     {
+        meleWeapon = GetComponentInParent<MeleWeapon>();
         audioManager = FindAnyObjectByType<AudioManager>();
         points = FindAnyObjectByType<ShootingPoints>();
     }
@@ -34,9 +35,9 @@ public class PlayerAttackPoint : MonoBehaviour
         {
             audioManager.PlayClip(enemyHitSound);
             points.CreateBloodPoint(transform.position);
-            hit[0].GetComponent<ZombieHealth>().ChangeHealth(-damage);
+            hit[0].GetComponent<ZombieHealth>().ChangeHealth(-damage,false);
 
-            gameObject.SetActive(false);
+            meleWeapon.DisableDamage();
         }
     }
 

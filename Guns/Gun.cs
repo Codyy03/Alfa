@@ -98,7 +98,7 @@ public class Gun : MonoBehaviour
 
                 switch (hit.transform.tag)
                 {
-                    case "Enemy": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 0, hit); hit.transform.GetComponent<ZombieHealth>().ChangeHealth(-damage); break;
+                    case "Enemy": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 0, hit); hit.transform.GetComponent<ZombieHealth>().ChangeHealth(-damage,true); break;
                     case "Metal": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 2, hit); break;
                     case "Ground": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 3, hit); break;
                 }
