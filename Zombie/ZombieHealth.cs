@@ -9,22 +9,21 @@ public class ZombieHealth : MonoBehaviour
     [SerializeField] int maxHealth;
     [SerializeField] BoxCollider headCollider;
     [SerializeField] AudioClip bodyHit;
-    int health;
+    public bool isOnFire;
 
+
+    int health;
     AnimatorController animatorController;
     ZombieController zombieController;
-    AudioManager audioManager;
+    AudioSource audioSource;
     private void Awake()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioSource = GetComponent<AudioSource>();
         zombieController = GetComponent<ZombieController>();
         animatorController = GetComponent<AnimatorController>();    
         health = maxHealth;
     }
-    void Start()
-    {
-        
-    }
+
 
     // Update is called once per fr
     void Update()
@@ -39,7 +38,7 @@ public class ZombieHealth : MonoBehaviour
         zombieController.SetPlayerIsInZombieRange(true);
 
         if(gunDamage)
-        audioManager.PlayClip(bodyHit);
+            audioSource.PlayOneShot(bodyHit);
 
         if (health == 0)
             IsDead();
@@ -60,14 +59,44 @@ public class ZombieHealth : MonoBehaviour
         GetComponent<AudioSource>().enabled = false;
         GetComponent<DestoryEffect>().enabled = true;
 
-       
+    
     }
 
     public void RemoveCollider()
     {
         GetComponent<Collider>().enabled = false;
         GetComponent<Rigidbody>().useGravity = false;
-
-        
     }
+
+    public void AddFireDamage()
+    {
+        if (isOnFire)
+            return;
+
+            isOnFire = true;
+            StartCoroutine(AddFireDamageEveryOneSecond());
+    }
+
+    IEnumerator AddFireDamageEveryOneSecond()
+    {
+        if (health == 0 )
+            yield break;
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (health == 0)
+            {
+                Destroy(GetComponentInChildren<ParticleSystem>().gameObject);
+                isOnFire = false;
+                yield break;
+            }
+           ChangeHealth(-10, false); // obrazenia od ognia
+           
+            yield return new WaitForSeconds(1f);
+        }
+        isOnFire = false;
+    }
+
+
+
 }

@@ -24,7 +24,6 @@ public class MeleWeapon : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-
                 animatorController.ChangeAnimationState(attacksAnimations[Random.Range(0, attacksAnimations.Length)]);
                 audioManager.PlayClip(weaponSound);
             }

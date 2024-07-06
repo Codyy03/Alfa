@@ -58,9 +58,6 @@ public class Scope : MonoBehaviour
                 ChangeMovingCameraStats(0f, 0f);
             else ChangeMovingCameraStats(0.9f, 0.15f);
         }
-
-      
-       
     }
 
     void ChangeMovingCameraStats(float speed, float amount)

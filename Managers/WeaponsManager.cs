@@ -36,7 +36,7 @@ public class WeaponsManager : MonoBehaviour
 
     
     public List<WeaponsSlot> weaponsSlots;
-
+   
    
 
     KeyCode[] weaponsNumbersp = new KeyCode[]
@@ -83,7 +83,8 @@ public class WeaponsManager : MonoBehaviour
                 else if(currentWeapon.isMeele && currentWeapon.weapon.GetComponent<MeleWeapon>()!=null) 
                     currentWeapon.weapon.GetComponent<MeleWeapon>().isAttacking = false;
 
-
+                currentWeapon.animatorController.ChangeAnimationState("Get");
+                AnimatorController.isGettingWeapon = true;
                 DisableWeapons();
                 currentWeapon = weaponsSlots[i];
                 currentWeapon.EneableWeapon();
@@ -97,8 +98,12 @@ public class WeaponsManager : MonoBehaviour
 
     public void DisableWeapons()
     {
-        foreach(WeaponsSlot weapon in weaponsSlots)  
+        foreach(WeaponsSlot weapon in weaponsSlots)
+        {
             weapon.weapon.SetActive(false);
+            if (weapon.weapon.GetComponent<Lighter>() != null)
+                weapon.weapon.GetComponent<Lighter>().DisableLighterLight();
+        }
         
     }
     public void PlayAnimation(string animation)

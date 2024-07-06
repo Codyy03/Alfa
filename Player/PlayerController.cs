@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first fr
     void Start()
     {
-
+     
     }
 
  
@@ -120,7 +121,7 @@ public class PlayerController : MonoBehaviour
                 playerFootsteps.stepDistance = walkStepDistance;
                 playerFootsteps.volumeMax = walkVolumeMax;
                 playerFootsteps.volumeMin = walkVolumeMin;
-                if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking())
+                if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking() && !AnimatorController.isGettingWeapon)
                 {
                     if (Input.GetKey(KeyCode.Mouse1))
                         weaponsManager.PlayAnimation("Walk_Aiming");
@@ -130,7 +131,7 @@ public class PlayerController : MonoBehaviour
                 if(!isCrouch)
                     SetColliderRadius(6.65f); 
             }
-            else if (Input.GetKey(KeyCode.LeftShift) && !weaponsManager.IsShooting() && !weaponsManager.IsReloading() && !isCrouch && !weaponsManager.IsAttacking())
+            else if (Input.GetKey(KeyCode.LeftShift) && !weaponsManager.IsShooting() && !weaponsManager.IsReloading() && !isCrouch && !weaponsManager.IsAttacking() && !AnimatorController.isGettingWeapon)
             {
                 playerFootsteps.stepDistance = sprintStepDistance;
                 playerFootsteps.volumeMin = sprintVolume;
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking())
+        if (!weaponsManager.IsReloading() && !weaponsManager.IsAttacking() && !AnimatorController.isGettingWeapon)
         {
             if (Input.GetKey(KeyCode.Mouse1))
                 weaponsManager.PlayAnimation("Idle_Aiming");

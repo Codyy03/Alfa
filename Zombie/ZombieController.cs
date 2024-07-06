@@ -11,6 +11,8 @@ public class ZombieController : MonoBehaviour
     [SerializeField] float speed,rotationSpeed;
     [SerializeField] float distanceToStopWalikngToPlayer;
     [SerializeField] AudioClip zombieIdle, zombieAttack;
+
+   
     Vector3 relativePos;
     float distanceToPlayer;
     bool playerIsInZombieRange;
@@ -82,12 +84,6 @@ public class ZombieController : MonoBehaviour
 
 
     }
-
-    void Update()
-    {
-       
-
-    }
     void DisableDamage()
     {
         attackPoint.SetActive(false);
@@ -108,5 +104,6 @@ public class ZombieController : MonoBehaviour
     { 
         this.playerIsInZombieRange = playerIsInZombieRange;
     }
-
+    
+   
 }

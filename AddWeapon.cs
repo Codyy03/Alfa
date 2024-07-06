@@ -30,7 +30,7 @@ public class AddWeapon : MonoBehaviour
             {
                 weaponsManager.weaponsSlots[weaponSlot].isUnlock = true;
                 weaponsManager.DisableWeapons();
-              //  weaponsManager.weaponsSlots[weaponSlot].ActivateWeapon(weaponsManager.GetComponent<AnimatorController>());
+
                 weaponsManager.SetCurrentWeapon(weaponsManager.weaponsSlots[weaponSlot]);
                 Destroy(gameObject);
             }

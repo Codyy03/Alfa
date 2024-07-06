@@ -12,18 +12,21 @@ public class PlayerAttackPoint : MonoBehaviour
     ShootingPoints points;
     AudioManager audioManager;
     MeleWeapon meleWeapon;
+    SetFire setFire;
     private void Awake()
     {
         meleWeapon = GetComponentInParent<MeleWeapon>();
         audioManager = FindAnyObjectByType<AudioManager>();
         points = FindAnyObjectByType<ShootingPoints>();
+         
+        setFire = GetComponent<SetFire>();
     }
     void Start()
     {
 
     }
 
-    // Update is called once per frame
+    // Update is called once per fr
     void Update()
     {
         AddDamage();
@@ -31,11 +34,20 @@ public class PlayerAttackPoint : MonoBehaviour
     void AddDamage()
     {
         Collider[] hit = Physics.OverlapSphere(transform.position, radius, enemyLayer);
+        ZombieHealth zombieHealth;
         if (hit.Length > 0)
         {
+            zombieHealth = hit[0].GetComponent<ZombieHealth>();
             audioManager.PlayClip(enemyHitSound);
             points.CreateBloodPoint(transform.position);
-            hit[0].GetComponent<ZombieHealth>().ChangeHealth(-damage,false);
+            zombieHealth.ChangeHealth(-damage,false);
+
+            if(setFire!=null && setFire.CanBurn())
+            {
+                setFire.CreateFire(hit[0].transform,new Vector3(0, 0.987f,0), hit[0].GetComponent<AudioSource>());
+                zombieHealth.AddFireDamage();
+
+            }
 
             meleWeapon.DisableDamage();
         }

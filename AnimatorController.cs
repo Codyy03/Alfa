@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AnimatorController : MonoBehaviour
 {
+    public static bool isGettingWeapon;
     public string idleAnimation;
     public string walkAnimation;
     public string hitAnimation;
@@ -31,10 +32,7 @@ public class AnimatorController : MonoBehaviour
         currentAnimation = animation;
     }
 
-    // tylko do zapalniczki. Ustawia swiatlo na wlaczone
-    void EneableLighterLight()
-    { 
-        
+    void DisableGettingWeapon()
+    { isGettingWeapon = false; }
     
-    }
 }
