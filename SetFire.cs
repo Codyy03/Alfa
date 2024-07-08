@@ -8,14 +8,8 @@ public class SetFire : MonoBehaviour
 
 
    
-
-    private void Awake()
-    {
-       
-    }
     public bool CanBurn()
     {
-
         int random = Random.Range(0, 100);
 
         if(random <= percentToStartAFire)
@@ -23,9 +17,9 @@ public class SetFire : MonoBehaviour
 
         return false;
 
-
     }
 
+    // tworzy ogien
     public void CreateFire(Transform parent, Vector3 plusPosition,AudioSource audioSource)
     {
         GameObject fire;

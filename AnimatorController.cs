@@ -23,6 +23,7 @@ public class AnimatorController : MonoBehaviour
         return animator;
     
     }
+    // zmienia animacje obiektu na którym dodany jest komponent
     public void ChangeAnimationState(string animation)
     {
         if (currentAnimation == animation || string.IsNullOrEmpty(animation))
@@ -32,6 +33,7 @@ public class AnimatorController : MonoBehaviour
         currentAnimation = animation;
     }
 
+    // bron zostala wyciagnieta. Funkcja wykonuje sie na koncu animacji.
     void DisableGettingWeapon()
     { isGettingWeapon = false; }
     

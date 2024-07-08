@@ -41,6 +41,7 @@ public class Gun : MonoBehaviour
         
         
     }
+    // ustawia wartosci tak¿dej broni na starcie
     public void SetValues() {
         playerController = Object.FindFirstObjectByType<PlayerController>();
         audioManager = FindAnyObjectByType<AudioManager>();
@@ -49,6 +50,7 @@ public class Gun : MonoBehaviour
         shootingPoint = FindAnyObjectByType<ShootingPoints>();
     }
 
+    // funckja odpowiadaj¹ca za prze³adowanie
     public virtual void Reload(){
         isShooting = false;
 
@@ -77,10 +79,11 @@ public class Gun : MonoBehaviour
     }
     public void Shoot()
     {
+        // jezeli gracz prze³adowuje lub strzela nie pozwól strzeliæ ponownie
         if (isReloading || isShooting)
             return;
         
-
+        // sprawdza mozliwosc oddania strzalu
         if (Time.time >= nextTimeToFire && playerController.GetSpeed() != 4f)
         {
             RaycastHit hit;
@@ -93,15 +96,17 @@ public class Gun : MonoBehaviour
             currentAmmoInMagazine--;
             controller.ChangeAnimationState(currentAnimation);
 
+            // jezeli pocisk trafi³ w jakiœ obiekt
             if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, maxDistanceShoot))
             {
-
+                // swtórz poprawny efekt strza³u w zale¿noœci od powierzchni w która trafi³ pocisk
                 switch (hit.transform.tag)
                 {
                     case "Enemy": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 0, hit); hit.transform.GetComponent<ZombieHealth>().ChangeHealth(-damage,true); break;
                     case "Metal": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 2, hit); break;
                     case "Ground": shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 3, hit); break;
                 }
+                // po trafieniu w g³owe przeciwnika: zabij go i zniszcz g³owe
                 if (hit.collider.CompareTag("Head"))
                 {
                     shootingPoint.CreatePoint(new Vector3(hit.point.x, hit.point.y, hit.point.z), 4, hit);
@@ -116,6 +121,7 @@ public class Gun : MonoBehaviour
 
     public void Aim()
     {
+        // jezeli prze³adowuje nie pozwól celowaæ
         if (isReloading)
             return;
 
@@ -151,6 +157,7 @@ public class Gun : MonoBehaviour
         }
     }
 
+    // po up³ywie jednej sekudy zmniejsz obszar w którym zombie mo¿e zobaczyæ gracza
     IEnumerator PlayerShootSound()
     {
         yield return new WaitForSeconds(1f);

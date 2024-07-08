@@ -9,14 +9,9 @@ public class DestoryEffect : MonoBehaviour
     void Start()
     {
         StartCoroutine(WaitToDestory());
+    }
 
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // niszczy obiekt po okreslonym czasie
     IEnumerator WaitToDestory()
     {
         yield return new WaitForSeconds(timeToDestroy); Destroy(gameObject);

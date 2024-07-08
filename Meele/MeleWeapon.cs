@@ -22,6 +22,7 @@ public class MeleWeapon : MonoBehaviour
     {
         if (!isAttacking)
         {
+            // jezeli gracz nie atakuje i nacisnie lewy przysick myszy wykonaj animacje ataku i zagraj dzwiek
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 animatorController.ChangeAnimationState(attacksAnimations[Random.Range(0, attacksAnimations.Length)]);

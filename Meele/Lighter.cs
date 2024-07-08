@@ -11,18 +11,14 @@ public class Lighter : MonoBehaviour
     {
         manager = FindFirstObjectByType<AudioManager>();
     }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    // w³¹cz zapalniczke
     void EneableLighterLight()
     {
         light.SetActive(true);
         manager.PlayClip(startLighter);
     }
-
+    // wy³¹cz zapalniczke
     public void DisableLighterLight()
     { light.SetActive(false); }
 

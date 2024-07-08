@@ -21,14 +21,11 @@ public class Notes : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         notesManager = FindFirstObjectByType<NotesManager>();
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
+        
+        // jezeli notatka moze byc przeczytana i gracz nasicnie 'e' otworz notatke
         if (noteCanBeOpen)
         {
             notificationCanvas.SetActive(true);
@@ -44,13 +41,12 @@ public class Notes : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        // jezeli gracz znajduje sie w strefie notatki wlacz mozliwosc jej przeczytania
         if(other.gameObject.CompareTag("Player"))
-        {
             noteCanBeOpen = true;
-
-        }
     }
 
+    // wylacz mozliwosc przeczytania notatki
     private void OnTriggerExit(Collider other)
     {
         noteCanBeOpen = false;

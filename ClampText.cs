@@ -14,19 +14,11 @@ public class ClampText : MonoBehaviour
     {
         cam = Camera.main;
     }
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
+    // wyswietla tekst na ekranie niezale¿nie od pozycji gracza
     void Update()
     {
         Vector3 position = cam.WorldToScreenPoint(this.transform.position);
        
         textLabel.transform.position = position + offset;
-
-        
-       
     }
 }

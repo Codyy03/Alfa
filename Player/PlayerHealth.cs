@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        // jezeli zycie jest wieksze od 0 a mniejsze od 21 to zregeneruj zdrowie do 20
         if (health < 20)
         {
             isLowHP = true;
@@ -42,13 +42,14 @@ public class PlayerHealth : MonoBehaviour
         }
 
     }
-
+    // zmiena wartosc zmiennej helath w zale¿noœci od wartoœci prarametru vlaue
     public void ChangeHealth(float value)
     {
         health = Mathf.Clamp(health+value, 0, maxHealth);
         playerHealth.fillAmount = health / maxHealth;
     }    
 
+    //regeneruje zycie
     void RegenerateHealthTo20(float currentHealth)
     {
         float health = 0;

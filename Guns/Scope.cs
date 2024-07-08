@@ -26,6 +26,7 @@ public class Scope : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // przybliz kamere za pomoca scrolla
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0)
         {
@@ -45,7 +46,7 @@ public class Scope : MonoBehaviour
         }
 
     }
-
+    // ustawia wartosci kamery na odpowinie
     void ChangeMovingCameraStatsToRightLevel()
     {
         if (playerController.GetMovement() != Vector3.zero)
@@ -59,13 +60,11 @@ public class Scope : MonoBehaviour
             else ChangeMovingCameraStats(0.9f, 0.15f);
         }
     }
-
+    // zmiena wartosci poruszania sie kamery
     void ChangeMovingCameraStats(float speed, float amount)
     {
         bobbingSpeed = speed;
         bobbingAmount = amount;
-
-
     }
     
 }

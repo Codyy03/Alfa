@@ -31,20 +31,13 @@ public class PlayerController : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
     }
 
-    // Start is called before the first fr
-    void Start()
-    {
-     
-    }
-
- 
-
+   
     private void Update()
     {
         movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         movement = transform.TransformDirection(movement);
         
-
+      
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
 
