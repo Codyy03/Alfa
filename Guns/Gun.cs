@@ -79,14 +79,14 @@ public class Gun : MonoBehaviour
     {
         if (isReloading || isShooting)
             return;
-
+        
 
         if (Time.time >= nextTimeToFire && playerController.GetSpeed() != 4f)
         {
             RaycastHit hit;
             isShooting = true;
             nextTimeToFire = Time.time + 1f / fireRate;
-            playerController.SetColliderRadius(10.05697f);
+            playerController.SetColliderRadius(25f);
             StartCoroutine(PlayerShootSound());
             audioManager.PlayClip(fireSound);
 

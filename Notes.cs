@@ -13,6 +13,7 @@ public class Notes : MonoBehaviour
     [SerializeField] string note;
 
 
+    bool noteCanBeOpen;
     Transform player;
     NotesManager notesManager;
     private void Awake()
@@ -28,14 +29,30 @@ public class Notes : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.position) <= distanceToEneableTakeWeapon)
+        if (noteCanBeOpen)
         {
             notificationCanvas.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
                 notesManager.SetNote(title, note);
+                notificationCanvas.SetActive(false);
             }
         }
         else notificationCanvas.SetActive(false);
+    }
+
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            noteCanBeOpen = true;
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        noteCanBeOpen = false;
     }
 }

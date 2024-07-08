@@ -31,6 +31,10 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Time.timeScale < 1.0f)
+            return;
+
+
         LockAndUnlockCursor();
         if (Cursor.lockState == CursorLockMode.Locked)
             LookAround();

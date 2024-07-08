@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
                 playerFootsteps.volumeMin = sprintVolume;
                 playerFootsteps.volumeMax = sprintVolume;
                 weaponsManager.PlayAnimation("Run");
-                SetColliderRadius(10.05697f);
+                SetColliderRadius(25f);
             }
             return;
         }
